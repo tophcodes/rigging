@@ -12,14 +12,17 @@
 
   programs.git = {
     enable = true;
-    userName = "Christopher Mühl";
-    userEmail = "christopher@muehl.dev";
+
     signing = {
       signByDefault = true;
       key = "E919B0F59E14FD47";
     };
-    extraConfig = {
-      users.email = "padarom@users.noreply.github.com";
+
+    settings = {
+      user = {
+        name = "Christopher Mühl";
+        email = "hello@muehl.dev";
+      };
       push = {
         default = "current";
         autoSetupRemote = true;

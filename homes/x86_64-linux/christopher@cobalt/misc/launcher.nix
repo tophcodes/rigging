@@ -3,15 +3,12 @@
   lib,
   ...
 }: {
-  home.packages = with pkgs; [
-    fuzzel
-  ];
-
-  programs.tofi = {
+  programs.tofi.enable = true;
+  programs.fuzzel = {
     enable = true;
-    settings = {
-      font = "JetBrains Mono";
-    };
+    #settings = ''
+    #
+    #'';
   };
 
   # Clear the tofi cache after each activation so that newly installed packages

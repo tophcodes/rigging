@@ -1,4 +1,5 @@
 {
+  inputs,
   pkgs,
   config,
   lib,
@@ -23,8 +24,13 @@ in {
       wayland-utils
       wl-clipboard
       libsForQt5.qtstyleplugin-kvantum
-      # xwayland-satellite
+      xwayland-satellite
     ];
+
+    programs.niri = {
+      enable = true;
+      package = pkgs.niri;
+    };
 
     services.xserver = {
       enable = true;
@@ -35,15 +41,15 @@ in {
       defaultSession = "plasma";
 
       # SDDM is broken
-      gdm = {
-        enable = true;
-        wayland = true;
-      };
-
-      # sddm = {
+      # gdm = {
       #   enable = true;
-      #  wayland.enable = true;
+      #   wayland = true;
       # };
+
+      sddm = {
+        enable = true;
+        wayland.enable = true;
+      };
     };
 
     # xdg.portal.extraPortals = [pkgs.xdg-desktop-portal-gtk];

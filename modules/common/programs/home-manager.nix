@@ -1,6 +1,6 @@
 {inputs, ...}: {
   home-manager = {
-    useGlobalPkgs = true;
+    # useGlobalPkgs = true;
     useUserPackages = true;
     backupFileExtension = "hm.bak";
   };

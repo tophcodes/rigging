@@ -4,8 +4,8 @@
   ...
 }: {
   imports = [
-    inputs.niri.homeModules.niri
     ./settings.nix
+    ./window-rules.nix
     ./keybinds.nix
     ./autostart.nix
   ];

@@ -8,6 +8,7 @@
       ./ssh.nix
       ./gpg
       ./niri
+      ./stylix.nix
       ./misc/launcher.nix
       ./misc/browser.nix
       ./misc/gaming.nix
@@ -42,7 +43,6 @@
       spawn-term
       to-s3
       tofi-hg
-      open-url
       generate-wallpaper
     ];
   };

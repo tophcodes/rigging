@@ -22,6 +22,7 @@
         darwin = [
           agenix.darwinModules.default
           agenix-rekey.nixosModules.default
+          stylix.darwinModules.stylix
           ./modules/common
         ];
       };
@@ -29,7 +30,9 @@
       # Add modules only to specific hosts
       systems.hosts = with inputs; {
         cobalt.modules = [
+          niri.nixosModules.niri
           musnix.nixosModules.default
+          stylix.nixosModules.stylix
         ];
         beryllium.modules = [
           quadlet.nixosModules.quadlet
@@ -52,7 +55,10 @@
         permittedInsecurePackages = [];
       };
 
-      overlays = with inputs; [niri.overlays.niri];
+      overlays = with inputs; [
+        niri.overlays.niri
+        nur.overlays.default
+      ];
 
       outputs-builder = channels: {
         formatter = channels.nixpkgs.alejandra;
@@ -97,10 +103,19 @@
     agenix-rekey.url = "github:oddlama/agenix-rekey";
     agenix-rekey.inputs.nixpkgs.follows = "nixpkgs";
 
+    stylix = {
+      url = "github:nix-community/stylix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
     affinity-nix.url = "github:mrshmllow/affinity-nix";
     quadlet.url = "github:SEIAROTg/quadlet-nix";
     musnix.url = "github:musnix/musnix";
     niri.url = "github:sodiboo/niri-flake/9e59ee8";
     awww.url = "git+https://codeberg.org/LGFae/awww";
+    nur = {
+      url = "github:nix-community/NUR";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 }

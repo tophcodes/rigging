@@ -20,7 +20,6 @@ in {
 
       settings = {
         window_padding_width = "5 10";
-        font_family = "Monaspace Krypton";
         paste_actions = "no-op";
       };
 
@@ -32,8 +31,6 @@ in {
         shell ${pkgs.fish}/bin/fish
         modify_font cell_height 7px
       '';
-
-      themeFile = "Rosé Pine Dawn";
     };
 
     xdg.configFile."kitty/open-actions.conf".text = ''

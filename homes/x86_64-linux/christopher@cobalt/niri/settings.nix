@@ -4,8 +4,6 @@
   ...
 }: {
   programs.niri = {
-    enable = true;
-
     settings = {
       prefer-no-csd = true;
 
@@ -21,6 +19,7 @@
 
       window-rules = [
         {
+          opacity = 0.95;
           clip-to-geometry = true;
           geometry-corner-radius = {
             bottom-left = 12.0;
@@ -31,6 +30,8 @@
         }
         {
           matches = [{is-focused = true;}];
+
+          # opacity = 0.98;
           focus-ring = {
             width = 2;
           };
@@ -41,9 +42,19 @@
         keyboard.xkb.layout = "en";
       };
 
-      cursor = {
-        size = 0;
-        theme = "Adwaita";
+      outputs = {
+        "DP-3" = {
+          position.x = 3840;
+          position.y = -370;
+          transform = {
+            rotation = 90;
+          };
+        };
+        "HDMI-A-1" = {
+          position.x = 0;
+          position.y = 0;
+          focus-at-startup = true;
+        };
       };
 
       environment = {
@@ -55,7 +66,6 @@
         ELECTRON_OZONE_PLATFORM_HINT = "auto";
         XDG_SESSION_TYPE = "wayland";
         XDG_CURRENT_DESKTOP = "niri";
-        DISPLAY = ":0";
       };
     };
   };

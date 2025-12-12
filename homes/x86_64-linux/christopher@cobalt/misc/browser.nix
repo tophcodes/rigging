@@ -1,19 +1,25 @@
 {pkgs, ...}: {
-  home.packages = with pkgs; [
-    firefox
-  ];
-
-  xdg.mimeApps = {
+  programs.firefox = {
     enable = true;
-    defaultApplications = {
-      "x-scheme-handler/http" = "open-url.desktop";
-      "x-scheme-handler/https" = "open-url.desktop";
+
+    profiles."default" = {
+      id = 0;
+    };
+    profiles."work" = {
+      id = 1;
     };
   };
 
-  # profile-sync-daemon manages browser profiles in tmpfs
+  home.packages = [pkgs._elements.open-url];
+  xdg.mimeApps.enable = true;
+  xdg.mimeApps.defaultApplications = {
+    "x-scheme-handler/http" = "open-url.desktop";
+    "x-scheme-handler/https" = "open-url.desktop";
+  };
+
   services.psd = {
+    # profile-sync-daemon
     enable = false;
-    # resyncTimer = "10m";
+    resyncTimer = "10m";
   };
 }

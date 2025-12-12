@@ -11,11 +11,11 @@
     enable = true;
 
     iconTheme.name = "breeze-dark";
-    cursorTheme = {
-      name = "BreezeX-RosePineDawn-Linux";
-      package = pkgs.rose-pine-cursor;
-      size = 32;
-    };
+    # cursorTheme = {
+    #   name = "BreezeX-RosePineDawn-Linux";
+    #   package = pkgs.rose-pine-cursor;
+    #   size = 32;
+    # };
 
     gtk2.extraConfig = lib._elements.selfReferencedString {sep = "#";} ''
       gtk-enable-animations = 1
@@ -25,11 +25,6 @@
       gtk-button-images = 1
       gtk-sound-theme-name = "freedesktop"
     '';
-
-    font = {
-      name = "Noto Sans";
-      size = 10;
-    };
 
     gtk3.extraConfig.gtk-application-prefer-dark-theme = 1;
     gtk4.extraConfig.gtk-application-prefer-dark-theme = 1;

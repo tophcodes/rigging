@@ -240,6 +240,7 @@ with lib._elements; {
       obs-vaapi
       obs-pipewire-audio-capture
       obs-backgroundremoval
+      obs-move-transition
       droidcam-obs
     ];
   };
