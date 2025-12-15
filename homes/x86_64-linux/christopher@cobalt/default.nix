@@ -42,7 +42,6 @@
       quick-zeal
       spawn-term
       to-s3
-      tofi-hg
       generate-wallpaper
     ];
   };

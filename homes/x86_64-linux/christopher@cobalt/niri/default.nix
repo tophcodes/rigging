@@ -8,6 +8,8 @@
     ./window-rules.nix
     ./keybinds.nix
     ./autostart.nix
+    ./shell.nix
+    ./notifications.nix
   ];
 
   programs.niri.package = pkgs.niri;

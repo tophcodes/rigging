@@ -4,8 +4,10 @@
   ...
 }: {
   programs.niri.settings.spawn-at-startup = with lib._elements; [
-    {argv = ["kitty"];}
+    {argv = ["mako"];}
     {argv = ["awww-daemon"];}
     {argv = ["awww" "img" "${fixture "wallpapers/cat-vibes.webp"}"];}
+
+    {argv = ["kitty"];}
   ];
 }
