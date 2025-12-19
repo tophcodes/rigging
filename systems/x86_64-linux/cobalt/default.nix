@@ -102,6 +102,7 @@ with lib._elements; {
     lnxlink.enable = true;
     beszel-agent.enable = true;
     beszel-agent.key = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIMkUPOw28Cu2LMuzfmvjT/L2ToNHcADwGyGvSpJ4wH2T";
+    elements.ollama.enable = true;
 
     pipewire = {
       enable = lib.mkForce true;

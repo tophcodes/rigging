@@ -9,6 +9,9 @@
     orca-slicer
     claude-code
     lutris
+    ollama
+    # currently doesn't build on unstable
+    # open-webui
     ;
 
   bambu-studio = channels.unstable.bambu-studio.overrideAttrs (old: let
