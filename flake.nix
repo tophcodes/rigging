@@ -1,7 +1,67 @@
 {
-  # References:
-  #   * https://github.com/Misterio77/nix-starter-config
-  description = "Padarom's system configuration";
+  description = "toph's system configuration";
+
+  inputs = {
+    # Core
+    nixpkgs.url = "github:NixOS/nixpkgs/nixos-25.11";
+    unstable.url = "github:NixOS/nixpkgs/nixos-unstable";
+
+    # Flake framework
+    # flake-parts.url = "github:hercules-ci/flake-parts";
+    # nixos-unified.url = "github:srid/nixos-unified";
+    snowfall = {
+      url = "github:snowfallorg/lib";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
+    # System management
+    home-manager = {
+      url = "github:nix-community/home-manager";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+    darwin = {
+      url = "github:lnl7/nix-darwin";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
+    # Infrastructure
+    disko = {
+      url = "github:nix-community/disko";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
+    # Secrets management
+    agenix = {
+      url = "github:ryantm/agenix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+    agenix-rekey = {
+      url = "github:oddlama/agenix-rekey";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
+    # Styling
+    stylix = {
+      url = "github:nix-community/stylix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
+    affinity-nix.url = "github:mrshmllow/affinity-nix";
+    quadlet.url = "github:SEIAROTg/quadlet-nix";
+    musnix.url = "github:musnix/musnix";
+    niri.url = "github:sodiboo/niri-flake/9e59ee8";
+    awww.url = "git+https://codeberg.org/LGFae/awww";
+    nur = {
+      url = "github:nix-community/NUR";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
+    # Custom
+    ovos = {
+      url = "git+file:///home/christopher/workspaces/ovos-flake";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+  };
 
   outputs = {self, ...} @ inputs:
     (inputs.snowfall.mkFlake {
@@ -72,54 +132,4 @@
         homeConfigurations = inputs.self.homeConfigurations;
       };
     };
-
-  inputs = {
-    # nixpkgs.url = "git+file:///home/christopher/code/opensource/nixpkgs";
-    nixpkgs.url = "github:NixOS/nixpkgs/nixos-25.11";
-    unstable.url = "github:NixOS/nixpkgs/nixos-unstable";
-
-    ovos.url = "git+file:///home/christopher/workspaces/ovos-flake";
-    ovos.inputs.nixpkgs.follows = "nixpkgs";
-
-    # Opinionated flake library for better organization without much boilerplate
-    snowfall = {
-      url = "github:snowfallorg/lib";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-
-    home-manager = {
-      # url = "git+file:///home/christopher/code/opensource/home-manager";
-      url = "github:nix-community/home-manager";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-
-    # For using home-manager on Darwin (macOS) devices
-    darwin.url = "github:lnl7/nix-darwin";
-    darwin.inputs.nixpkgs.follows = "nixpkgs";
-
-    # Disk management via Nix
-    disko.url = "github:nix-community/disko";
-    disko.inputs.nixpkgs.follows = "nixpkgs";
-
-    # Secrets management
-    agenix.url = "github:ryantm/agenix";
-    agenix.inputs.nixpkgs.follows = "nixpkgs";
-    agenix-rekey.url = "github:oddlama/agenix-rekey";
-    agenix-rekey.inputs.nixpkgs.follows = "nixpkgs";
-
-    stylix = {
-      url = "github:nix-community/stylix";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-
-    affinity-nix.url = "github:mrshmllow/affinity-nix";
-    quadlet.url = "github:SEIAROTg/quadlet-nix";
-    musnix.url = "github:musnix/musnix";
-    niri.url = "github:sodiboo/niri-flake/9e59ee8";
-    awww.url = "git+https://codeberg.org/LGFae/awww";
-    nur = {
-      url = "github:nix-community/NUR";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-  };
 }
