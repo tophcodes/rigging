@@ -1,4 +1,9 @@
-{pkgs, ...}: {
+{
+  pkgs,
+  inputs,
+  system,
+  ...
+}: {
   home.packages = with pkgs; [
     # Editors
     jetbrains-toolbox # Installer for JetBrains IDEs
@@ -24,6 +29,7 @@
     just # Just a command runner
     claude-monitor
     devenv
+    _elements.oryx # TUI for sniffing network traffic using eBPF
 
     # Build tools
     cargo
@@ -50,6 +56,8 @@
 
     claude-code = {
       enable = true;
+      # package = inputs.unstable.${system}.claude-code;
+
       commands = {
         fix-github-issue = ''
           Please analyze and fix the GitHub issue $ARGUMENTS.

@@ -14,5 +14,6 @@
 
     # Audio
     vcv-rack
+    supercollider
   ];
 }

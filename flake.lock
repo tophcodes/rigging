@@ -442,11 +442,11 @@
         "systems": "systems_2"
       },
       "locked": {
-        "lastModified": 1694529238,
-        "narHash": "sha256-zsNZZGTGnMOf9YpHKJqMSsa0dXbfmxeoJ7xHlrt+xmY=",
+        "lastModified": 1731533236,
+        "narHash": "sha256-l0KFg5HjrsfsO/JpG+r7fRrqm12kzFHyUHqHCVpMMbI=",
         "owner": "numtide",
         "repo": "flake-utils",
-        "rev": "ff7b65b44d01cf9ba6a71320833626af21126384",
+        "rev": "11707dc2f618dd54ca8739b309ec4fc024de578b",
         "type": "github"
       },
       "original": {
@@ -457,7 +457,7 @@
     },
     "flake-utils-plus": {
       "inputs": {
-        "flake-utils": "flake-utils"
+        "flake-utils": "flake-utils_2"
       },
       "locked": {
         "lastModified": 1715533576,
@@ -471,6 +471,24 @@
         "owner": "gytis-ivaskevicius",
         "repo": "flake-utils-plus",
         "rev": "3542fe9126dc492e53ddd252bb0260fe035f2c0f",
+        "type": "github"
+      }
+    },
+    "flake-utils_2": {
+      "inputs": {
+        "systems": "systems_3"
+      },
+      "locked": {
+        "lastModified": 1694529238,
+        "narHash": "sha256-zsNZZGTGnMOf9YpHKJqMSsa0dXbfmxeoJ7xHlrt+xmY=",
+        "owner": "numtide",
+        "repo": "flake-utils",
+        "rev": "ff7b65b44d01cf9ba6a71320833626af21126384",
+        "type": "github"
+      },
+      "original": {
+        "owner": "numtide",
+        "repo": "flake-utils",
         "type": "github"
       }
     },
@@ -910,6 +928,27 @@
         "type": "github"
       }
     },
+    "ovos": {
+      "inputs": {
+        "flake-utils": "flake-utils",
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1766165400,
+        "narHash": "sha256-T86no1MvUHVpC6xyrOJGB9VY4taj2fhJtcBEN+uhV60=",
+        "ref": "refs/heads/main",
+        "rev": "0344ae6de17572639359fe7ca35b3b2e703d3852",
+        "revCount": 5,
+        "type": "git",
+        "url": "file:///home/christopher/workspaces/ovos-flake"
+      },
+      "original": {
+        "type": "git",
+        "url": "file:///home/christopher/workspaces/ovos-flake"
+      }
+    },
     "plugin-loader": {
       "flake": false,
       "locked": {
@@ -973,6 +1012,7 @@
         "niri": "niri",
         "nixpkgs": "nixpkgs_7",
         "nur": "nur",
+        "ovos": "ovos",
         "quadlet": "quadlet",
         "snowfall": "snowfall",
         "stylix": "stylix",
@@ -1035,7 +1075,7 @@
           "nixpkgs"
         ],
         "nur": "nur_2",
-        "systems": "systems_3",
+        "systems": "systems_4",
         "tinted-foot": "tinted-foot",
         "tinted-kitty": "tinted-kitty",
         "tinted-schemes": "tinted-schemes",
@@ -1087,6 +1127,21 @@
       }
     },
     "systems_3": {
+      "locked": {
+        "lastModified": 1681028828,
+        "narHash": "sha256-Vy1rq5AaRuLzOxct8nz4T6wlgyUR7zLU309k9mBC768=",
+        "owner": "nix-systems",
+        "repo": "default",
+        "rev": "da67096a3b9bf56a91d16901293e51ba5b49a27e",
+        "type": "github"
+      },
+      "original": {
+        "owner": "nix-systems",
+        "repo": "default",
+        "type": "github"
+      }
+    },
+    "systems_4": {
       "locked": {
         "lastModified": 1681028828,
         "narHash": "sha256-Vy1rq5AaRuLzOxct8nz4T6wlgyUR7zLU309k9mBC768=",

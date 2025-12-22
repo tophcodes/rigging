@@ -27,9 +27,9 @@
     config.allowUnfree = true;
     config.permittedInsecurePackages = [
       "nixos-config"
-      "electron-27.3.11"
       "electron-36.9.5"
       "dotnet-sdk-6.0.428"
+      "olm-3.2.16"
     ];
   };
 

@@ -31,8 +31,9 @@
       systems.hosts = with inputs; {
         cobalt.modules = [
           niri.nixosModules.niri
-          musnix.nixosModules.default
           stylix.nixosModules.stylix
+          musnix.nixosModules.default
+          ovos.nixosModules.default
         ];
         beryllium.modules = [
           quadlet.nixosModules.quadlet
@@ -77,6 +78,9 @@
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-25.11";
     unstable.url = "github:NixOS/nixpkgs/nixos-unstable";
 
+    ovos.url = "git+file:///home/christopher/workspaces/ovos-flake";
+    ovos.inputs.nixpkgs.follows = "nixpkgs";
+
     # Opinionated flake library for better organization without much boilerplate
     snowfall = {
       url = "github:snowfallorg/lib";
@@ -117,6 +121,5 @@
       url = "github:nix-community/NUR";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-
   };
 }

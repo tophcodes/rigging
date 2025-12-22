@@ -15,13 +15,13 @@
 
     signing = {
       signByDefault = true;
-      key = "E919B0F59E14FD47";
+      key = "925AC7D69955293F";
     };
 
     settings = {
       user = {
         name = "Christopher Mühl";
-        email = "christopher@muehl.dev";
+        email = "toki@toph.so";
       };
       push = {
         default = "current";

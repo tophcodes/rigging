@@ -9,6 +9,8 @@
     ffmpeg
   ];
 
+  services.easyeffects.enable = true;
+
   programs.firefox.profiles."streaming" = {
     id = 2;
     settings = {};

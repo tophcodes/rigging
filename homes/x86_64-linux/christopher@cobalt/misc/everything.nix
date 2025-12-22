@@ -31,6 +31,9 @@
     zathura # Document viewer
     evince # Document viewer
 
+    # element-desktop
+    fractal # Matrix client
+    gomuks # Matrix client TUI
     telegram-desktop
     vesktop # Discord client
     filezilla # FTP Client
