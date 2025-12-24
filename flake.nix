@@ -7,12 +7,8 @@
     unstable.url = "github:NixOS/nixpkgs/nixos-unstable";
 
     # Flake framework
-    # flake-parts.url = "github:hercules-ci/flake-parts";
-    # nixos-unified.url = "github:srid/nixos-unified";
-    snowfall = {
-      url = "github:snowfallorg/lib";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
+    flake-parts.url = "github:hercules-ci/flake-parts";
+    nixos-unified.url = "github:srid/nixos-unified";
 
     # System management
     home-manager = {
@@ -64,74 +60,9 @@
     };
   };
 
-  outputs = {self, ...} @ inputs:
-    (inputs.snowfall.mkFlake {
+  outputs = inputs:
+    inputs.nixos-unified.lib.mkFlake {
       inherit inputs;
-      src = ./.;
-
-      # Exposes all internal libs and packages as `lib._elements` or `pkgs._elements` respectively
-      snowfall.namespace = "_elements";
-
-      # Global system modules to be included for all systems
-      systems.modules = with inputs; {
-        nixos = [
-          disko.nixosModules.default
-          agenix.nixosModules.default
-          agenix-rekey.nixosModules.default
-          ./modules/common
-        ];
-        darwin = [
-          agenix.darwinModules.default
-          agenix-rekey.nixosModules.default
-          stylix.darwinModules.stylix
-          ./modules/common
-        ];
-      };
-
-      # Add modules only to specific hosts
-      systems.hosts = with inputs; {
-        cobalt.modules = [
-          niri.nixosModules.niri
-          stylix.nixosModules.stylix
-          musnix.nixosModules.default
-          ovos.nixosModules.default
-        ];
-        beryllium.modules = [
-          quadlet.nixosModules.quadlet
-        ];
-        europium.modules = [
-          quadlet.nixosModules.quadlet
-        ];
-      };
-
-      homes.users = {
-        "christopher@beryllium".modules = with inputs; [
-          quadlet.homeManagerModules.quadlet
-        ];
-      };
-
-      # Configure nixpkgs when instantiating the package set
-      # TODO: This is already specified elsewhere. Still needed here?
-      channels-config = {
-        allowUnfree = true;
-        permittedInsecurePackages = [];
-      };
-
-      overlays = with inputs; [
-        niri.overlays.niri
-        nur.overlays.default
-        ovos.overlays.default
-      ];
-
-      outputs-builder = channels: {
-        formatter = channels.nixpkgs.alejandra;
-      };
-    })
-    // {
-      agenix-rekey = inputs.agenix-rekey.configure {
-        userFlake = inputs.self;
-        nixosConfigurations = inputs.self.nixosConfigurations // inputs.self.darwinConfigurations;
-        homeConfigurations = inputs.self.homeConfigurations;
-      };
+      root = ./.;
     };
 }
