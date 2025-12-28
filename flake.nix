@@ -8,7 +8,6 @@
 
     # Flake framework
     flake-parts.url = "github:hercules-ci/flake-parts";
-    nixos-unified.url = "github:srid/nixos-unified";
 
     # System management
     home-manager = {

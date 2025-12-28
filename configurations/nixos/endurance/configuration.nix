@@ -1,0 +1,259 @@
+# ++ 27_Co: Cobalt
+#
+# Main tower workstation environment
+{
+  pkgs,
+  lib,
+  config,
+  ...
+}:
+with lib._elements; {
+  imports = [
+    ./hardware.nix
+    ./disko.nix
+  ];
+
+  rigging = {
+    hostname = "endurance";
+    users = ["christopher"];
+    quirks = ["avahi" "docker" "nix-ld"];
+
+    window-manager.niri.enable = true;
+
+    secrets = {
+      key = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIPjqieS4GkYAa1WRYZpxjgYsj7VGZ9U+rTFCkX8M0umD";
+    };
+  };
+
+  # Set the default drive
+  disko.devices.disk.main.device = "/dev/nvme1n1";
+
+  musnix = {
+    enable = true;
+    rtcqs.enable = true;
+  };
+
+  qt = {
+    enable = true;
+    platformTheme = "qt5ct";
+    style = "kvantum";
+  };
+
+  networking = {
+    hostName = "endurance";
+    firewall.enable = false;
+    interfaces.eno1.wakeOnLan.enable = true;
+  };
+
+  # Set your time zone.
+  time.timeZone = "Europe/Berlin";
+
+  console = {
+    font = "Lat2-Terminus16";
+    useXkbConfig = true; # use xkbOptions in tty.
+  };
+
+  xdg.portal = {
+    enable = true;
+    xdgOpenUsePortal = true;
+  };
+
+  programs = {
+    weylus.users = ["christopher"];
+
+    dconf.enable = true;
+
+    steam = {
+      enable = true;
+      protontricks.enable = true;
+      remotePlay.openFirewall = true;
+    };
+    # VR support
+    envision.enable = true;
+
+    # For game-related system optimisations
+    gamemode.enable = true;
+
+    _1password.enable = true;
+    _1password-gui = {
+      enable = true;
+      # Certain features, including CLI integration and system authentication support,
+      # require enabling PolKit integration on some desktop environments (e.g. Plasma).
+      polkitPolicyOwners = ["christopher"];
+    };
+  };
+
+  services = {
+    # ovos.enable = true; # message-bus only. remainder in hm
+
+    openssh.enable = true;
+    openssh.settings.PasswordAuthentication = false;
+
+    hardware.openrgb.enable = true;
+
+    # Bluetooth manager
+    blueman.enable = true;
+    udev.extraRules = ''
+      # SpaceMouse Enterprise
+      SUBSYSTEM=="hidraw", ATTRS{idVendor}=="256f", MODE="0666"
+      # Thrustmaster T.Flight Rudder Pedals
+      SUBSYSTEM=="input", ATTRS{idProduct}=="b679", ATTRS{idVendor}=="044f", MODE="0666", ENV{ID_INPUT_JOYSTICK}="1"
+    '';
+    udev.packages = [pkgs.platformio-core.udev];
+
+    # Linux link via MQTT
+    lnxlink.enable = true;
+    beszel-agent.enable = true;
+    beszel-agent.key = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIMkUPOw28Cu2LMuzfmvjT/L2ToNHcADwGyGvSpJ4wH2T";
+    elements.ollama.enable = true;
+
+    pipewire = {
+      enable = lib.mkForce true;
+      alsa.enable = true;
+      jack.enable = true;
+      pulse.enable = true;
+    };
+
+    usbmuxd = {
+      enable = true;
+      package = pkgs.usbmuxd2;
+    };
+
+    gvfs.enable = true; # Mount/trash/...
+    tumbler.enable = true; # Thumbnail support in Thunar
+
+    gnome.gnome-keyring.enable = true;
+
+    # Enable CUPS to print documents.
+    printing = {
+      enable = true;
+      drivers = with pkgs; [
+        brlaser
+      ];
+    };
+
+    # Smartcard support, necessary for Yubikey logins
+    pcscd.enable = true;
+  };
+
+  programs = {
+    thunar.enable = true;
+    thunar.plugins = with pkgs.xfce; [
+      thunar-archive-plugin
+    ];
+
+    gnupg.agent = {
+      enable = true;
+      pinentryPackage = pkgs.pinentry-gtk2;
+      enableSSHSupport = true;
+    };
+  };
+
+  environment = {
+    # List packages installed in system profile. To search, run:
+    # $ nix search wget
+    systemPackages = with pkgs; [
+      # Global apps
+      vim
+      wget
+      htop
+      gnumake
+      libnotify
+      gtk3
+
+      openrgb-with-all-plugins
+      # lact # GPU tuning
+      libimobiledevice
+      ifuse
+      naps2 # Scanning
+
+      # Oxidized coreutils
+      uutils-coreutils-noprefix
+
+      wally-cli
+      keymapp
+      pavucontrol
+
+      nix-tree
+      nix-output-monitor
+
+      xdg-desktop-portal
+      xdg-desktop-portal-gtk
+    ];
+  };
+
+  users.groups.pico = {};
+
+  # AMD GPU tooling
+  # systemd.packages = [pkgs.lact];
+  # systemd.services.lactd.wantedBy = ["multi-user.target"];
+
+  hardware = {
+    amdgpu = {
+      opencl.enable = true;
+      overdrive.enable = true;
+    };
+
+    bluetooth = {
+      enable = true;
+      powerOnBoot = true;
+    };
+
+    graphics = {
+      enable = true;
+      enable32Bit = true;
+      extraPackages = with pkgs; [
+        mesa.opencl
+      ];
+    };
+
+    # SANE scanner support
+    sane = {
+      enable = true;
+      extraBackends = [pkgs.brscan4];
+    };
+
+    # 3DConnexion support
+    spacenavd.enable = true;
+
+    # Input emulation from userspace (see weylus).
+    uinput.enable = true;
+
+    # Enable zsa keyboard (Moonlander) support.
+    keyboard.zsa.enable = true;
+  };
+
+  system.stateVersion = "23.05"; # Do not change this value!
+
+  # Set up our bootloader
+  boot.loader = {
+    efi.canTouchEfiVariables = true;
+    grub = {
+      enable = true;
+      device = "nodev";
+      efiSupport = true;
+    };
+  };
+
+  programs.obs-studio = {
+    enable = true;
+    enableVirtualCamera = true;
+
+    plugins = with pkgs.obs-studio-plugins; [
+      wlrobs
+      obs-vaapi
+      obs-pipewire-audio-capture
+      obs-backgroundremoval
+      obs-move-transition
+      droidcam-obs
+    ];
+  };
+
+  boot.extraModulePackages = with config.boot.kernelPackages; [
+    v4l2loopback
+  ];
+  boot.kernelModules = ["v4l2loopback"];
+  boot.extraModprobeConfig = ''
+    options v4l2loopback devices=1 video_nr=1 card_label="OBS Cam" exclusive_caps=1
+  '';
+}
